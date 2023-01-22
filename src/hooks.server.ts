@@ -1,7 +1,8 @@
 import type { Handle } from '@sveltejs/kit';
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
-import { appRouter, trpcBasePath } from '~/trpc';
 import { PrismaClient } from '@prisma/client';
+import { appRouter } from '$lib/trpc/server';
+import { trpcBasePath } from '$lib/trpc/client';
 
 
 export const handle: Handle = async ({ event, resolve }) => {

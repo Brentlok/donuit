@@ -1,4 +1,4 @@
-import { trpc } from '~/trpc';
+import { trpc } from '$lib/trpc/client';
 import type { PageServerLoad } from './$types';
 
 export const load = (async () => {
@@ -6,5 +6,3 @@ export const load = (async () => {
 
     return { donuts };
 }) satisfies PageServerLoad;
-
-export const prerender = true;
