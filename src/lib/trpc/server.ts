@@ -1,16 +1,33 @@
-import { initTRPC } from "@trpc/server";
+import { TRPCError, initTRPC } from "@trpc/server";
 import type { Context } from "./context";
+
 
 const t = initTRPC.context<Context>().create();
 
-export const publicProcedure = t.procedure;
-export const router = t.router;
-export const middleware = t.middleware;
+const isAuthed = t.middleware(({ next, ctx }) => {
+    if (!ctx.user?.email) {
+        throw new TRPCError({
+            code: 'UNAUTHORIZED',
+        });
+    }
 
-export const appRouter = router({
-    donuts: router({
-        list: publicProcedure.query(({ ctx }) => ctx.prisma.donut.findMany({})),
-    }),
+    return next({
+        ctx: {
+            ...ctx,
+            user: ctx.user,
+        },
+    });
+});
+
+const publicProcedure = t.procedure;
+const protectedProcedure = t.procedure.use(isAuthed);
+
+const donutsRouter = t.router({
+    list: publicProcedure.query(({ ctx }) => ctx.prisma.donut.findMany({})),
+});
+
+export const appRouter = t.router({
+    donuts: donutsRouter,
 });
 
 export type AppRouter = typeof appRouter;

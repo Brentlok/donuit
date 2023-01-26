@@ -1,5 +1,8 @@
 <script lang="ts">
-	const user = null;
+	import { signIn } from '@auth/sveltekit/client';
+	import { page } from '$app/stores';
+	import User from './User.svelte';
+	const user = $page.data.session?.user;
 </script>
 
 <nav class="navbar justify-between w-full fixed z-50 top-0 left-0 bg-neutral px-6">
@@ -46,9 +49,9 @@
 				</svg>
 			</div>
 			{#if user}
-				<a class="btn btn-primary" href="/cart">Cart</a>
+				<User {user} />
 			{:else}
-				<a class="btn btn-primary" href="/login">Login</a>
+				<button class="btn btn-primary" on:click={() => signIn()}>Login</button>
 			{/if}
 		</li>
 	</ul>

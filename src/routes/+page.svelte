@@ -1,7 +1,12 @@
 <script lang="ts">
 	import { Donuts } from '~/components';
+	import { trpc } from '$lib/trpc/client';
 	import type { PageServerData } from './$types';
 
+	(async () => {
+		const r = await trpc.donuts.list.query();
+		console.log(r);
+	})();
 	export let data: PageServerData;
 </script>
 

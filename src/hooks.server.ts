@@ -1,25 +1,42 @@
-import type { Handle } from '@sveltejs/kit';
+import { GITHUB_ID, GITHUB_SECRET, GOOGLE_ID, GOOGLE_SECRET, JWT_SECRET } from "$env/static/private";
+import { appRouter, prisma, trpcBasePath } from '$lib/trpc';
+import type { Provider } from "@auth/core/providers";
+import GitHub from '@auth/core/providers/github';
+import Google from '@auth/core/providers/google';
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import { SvelteKitAuth } from '@auth/sveltekit';
+import { sequence } from '@sveltejs/kit/hooks';
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
-import { PrismaClient } from '@prisma/client';
-import { appRouter } from '$lib/trpc/server';
-import { trpcBasePath } from '$lib/trpc/client';
+import type { Adapter } from "@auth/core/adapters";
 
 
-export const handle: Handle = async ({ event, resolve }) => {
-    if (event.url.pathname.startsWith(`${trpcBasePath}/`)) {
-        const response = await fetchRequestHandler({
-            endpoint: trpcBasePath,
-            req: event.request,
-            router: appRouter,
-            createContext() {
-                return {
-                    prisma: new PrismaClient(),
-                }
-            },
-        });
+export const handle = sequence(
+    SvelteKitAuth({
+        providers: [
+            GitHub({ clientId: GITHUB_ID, clientSecret: GITHUB_SECRET }) as Provider,
+            Google({ clientId: GOOGLE_ID, clientSecret: GOOGLE_SECRET }) as Provider,
+        ],
+        secret: JWT_SECRET,
+        adapter: PrismaAdapter(prisma) as Adapter,
+    }),
+    async ({ event, resolve }) => {
+        const session = await event.locals.getSession();
+        if (event.url.pathname.startsWith(`${trpcBasePath}/`)) {
+            const response = await fetchRequestHandler({
+                endpoint: trpcBasePath,
+                req: event.request,
+                router: appRouter,
+                createContext() {
+                    return {
+                        prisma,
+                        user: session?.user,
+                    }
+                },
+            });
 
-        return response;
+            return response;
+        }
+
+        return await resolve(event);
     }
-
-    return await resolve(event);
-};
+);
