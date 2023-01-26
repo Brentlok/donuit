@@ -1,13 +1,13 @@
 import { GITHUB_ID, GITHUB_SECRET, GOOGLE_ID, GOOGLE_SECRET, JWT_SECRET } from "$env/static/private";
-import { appRouter, prisma, trpcBasePath } from '$lib/trpc';
+import type { Adapter } from "@auth/core/adapters";
 import type { Provider } from "@auth/core/providers";
 import GitHub from '@auth/core/providers/github';
 import Google from '@auth/core/providers/google';
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { SvelteKitAuth } from '@auth/sveltekit';
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { sequence } from '@sveltejs/kit/hooks';
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
-import type { Adapter } from "@auth/core/adapters";
+import { appRouter, prisma, trpcBasePath } from '~/trpc';
 
 
 export const handle = sequence(

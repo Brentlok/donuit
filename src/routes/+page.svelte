@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Donuts } from '~/components';
-	import { trpc } from '$lib/trpc/client';
+	import { trpc } from '~/trpc/client';
 	import type { PageServerData } from './$types';
 
 	(async () => {

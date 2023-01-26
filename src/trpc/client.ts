@@ -1,6 +1,6 @@
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';
 import { env } from '$env/dynamic/public';
-import type { AppRouter } from './server';
+import type { AppRouter } from '~/trpc';
 
 export const trpcBasePath = '/api/trpc';
 

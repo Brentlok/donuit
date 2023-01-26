@@ -1,7 +1,6 @@
 import { TRPCError, initTRPC } from "@trpc/server";
 import type { Context } from "./context";
 
-
 const t = initTRPC.context<Context>().create();
 
 const isAuthed = t.middleware(({ next, ctx }) => {
@@ -19,12 +18,11 @@ const isAuthed = t.middleware(({ next, ctx }) => {
     });
 });
 
-const publicProcedure = t.procedure;
 const protectedProcedure = t.procedure.use(isAuthed);
 
 const donutsRouter = t.router({
-    list: publicProcedure.query(({ ctx }) => ctx.prisma.donut.findMany({})),
-});
+    list: t.procedure.query(({ ctx }) => ctx.prisma.donut.findMany()),
+})
 
 export const appRouter = t.router({
     donuts: donutsRouter,
