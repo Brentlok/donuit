@@ -23,4 +23,8 @@
 		-moz-appearance: textfield;
 		appearance: textfield;
 	}
+
+	.bg-accent-transparent {
+		background-color: rgba(160, 86, 232, 0.6);
+	}
 }

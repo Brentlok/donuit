@@ -41,7 +41,7 @@
 						<span>
 							{get(item).count}x
 						</span>
-						<img class="w-8 h-8" src={`/donuts/${get(item).product.img}`} alt="" />
+						<img class="w-8 h-auto" src={`/donuts/${get(item).product.img}`} alt="" />
 						<span>
 							{get(item).product.name}
 						</span>

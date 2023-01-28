@@ -1,6 +1,7 @@
 import { TRPCError, initTRPC } from "@trpc/server";
 import type { Context } from "./context";
 import * as T from "superstruct";
+import { Page } from "./utils";
 
 const t = initTRPC.context<Context>().create();
 
@@ -22,7 +23,28 @@ const isAuthed = t.middleware(({ next, ctx }) => {
 const protectedProcedure = t.procedure.use(isAuthed);
 
 const donutsRouter = t.router({
-    list: t.procedure.query(({ ctx }) => ctx.prisma.donut.findMany()),
+    list: t.procedure
+        .input(T.object({
+            paging: Page,
+        }))
+        .query(async ({ input, ctx }) => {
+            const { paging } = input;
+
+            const data = await ctx.prisma.donut.findMany({
+                take: paging.pageSize,
+                skip: paging.pageSize * (paging.page - 1),
+            });
+
+            const totalCount = await ctx.prisma.donut.count({});
+
+            return {
+                data,
+                paging: {
+                    ...paging,
+                    max: Math.ceil(totalCount / paging.pageSize),
+                }
+            }
+        }),
     get: t.procedure
         .input(T.object({
             id: T.number(),
@@ -33,7 +55,6 @@ const donutsRouter = t.router({
                     equals: input.id
                 }
             },
-            take: 8,
         })),
 })
 
