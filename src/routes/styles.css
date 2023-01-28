@@ -8,8 +8,9 @@
 	}
 
 	body {
-		@apply bg-neutral min-h-screen;
+		@apply min-h-screen;
 		font-family: Chango;
+		background: url('bg.png');
 	}
 
 	input::-webkit-outer-spin-button,
