@@ -10,7 +10,7 @@ export * from './server';
 export { trpcBasePath } from './client';
 export const getTrpcServerClient = async (e: ServerLoadEvent<RouteParams, {
     session: Session | null;
-}, "/">) => {
+}, string>) => {
     const { session } = await e.parent();
     return appRouter.createCaller({ prisma, user: session?.user });
 }

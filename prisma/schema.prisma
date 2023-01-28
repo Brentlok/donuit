@@ -7,12 +7,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Donut {
-    id   Int    @id @default(autoincrement())
-    name String
-    img  String
-}
-
 model Account {
     id                String  @id @default(cuid())
     userId            String
@@ -56,4 +50,12 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Donut {
+    id          Int    @id @default(autoincrement())
+    name        String
+    img         String
+    description String @db.Text
+    price       Int
 }

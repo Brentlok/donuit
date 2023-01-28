@@ -2,11 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-*::selection {
-	@apply bg-secondary text-primary;
-}
+@layer base {
+	*::selection {
+		@apply bg-secondary text-primary;
+	}
 
-body {
-	@apply bg-neutral min-h-screen;
-	font-family: Chango;
+	body {
+		@apply bg-neutral min-h-screen;
+		font-family: Chango;
+	}
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	input[type='number'] {
+		-moz-appearance: textfield;
+		appearance: textfield;
+	}
 }

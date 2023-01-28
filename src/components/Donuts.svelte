@@ -21,7 +21,7 @@
 </script>
 
 {#each donuts as donut (donut.id)}
-	<div class="grid place-items-center">
+	<a href={`/donut/${donut.id}`} class="grid place-items-center">
 		<div
 			class="cursor-pointer"
 			on:mouseover={(e) => handleMouse(donut, e)}
@@ -31,7 +31,7 @@
 		>
 			<img class="pointer-events-none" src={`/donuts/${donut.img}`} alt="" />
 		</div>
-	</div>
+	</a>
 {/each}
 
 {#if show}
