@@ -32,7 +32,8 @@ const donutsRouter = t.router({
                 id: {
                     equals: input.id
                 }
-            }
+            },
+            take: 8,
         })),
 })
 

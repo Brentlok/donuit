@@ -1,18 +1,12 @@
 <script lang="ts">
 	import { Donuts } from '~/components';
-	import { trpc } from '~/trpc/client';
 	import type { PageServerData } from './$types';
-
-	(async () => {
-		const r = await trpc.donuts.list.query();
-		console.log(r);
-	})();
 	export let data: PageServerData;
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>DONUiT - Home</title>
+	<meta name="description" content="DONUiT" />
 </svelte:head>
 
 <main class="min-h-screen">
@@ -32,7 +26,9 @@
 		<article class="flex justify-end p-12">
 			<button class="btn btn-warning">more about us</button>
 		</article>
-		<article class="artboard bg-info grid grid-cols-4 gap-4">
+		<article
+			class="artboard bg-info grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4"
+		>
 			<Donuts donuts={data.donuts} />
 		</article>
 	</section>

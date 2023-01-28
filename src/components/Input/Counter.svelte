@@ -16,8 +16,8 @@
 	}
 </script>
 
-<div class="bg-info rounded-l-xl text-accent w-20 flex justify-between px-2">
+<div class="bg-info rounded-l-xl text-accent w-24 flex justify-between px-2">
 	<button class="w-2" on:click={() => value--}> - </button>
-	<input type="number" class="bg-info w-6 text-center" bind:value />
+	<input type="number" class="bg-info w-8 text-center" bind:value />
 	<button class="w-2" on:click={() => value++}> + </button>
 </div>

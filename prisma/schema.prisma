@@ -53,9 +53,10 @@ model VerificationToken {
 }
 
 model Donut {
-    id          Int    @id @default(autoincrement())
+    id          Int     @id @default(autoincrement())
     name        String
     img         String
-    description String @db.Text
-    price       Int
+    description String  @db.Text
+    price       Float
+    sugarFree   Boolean @default(false)
 }

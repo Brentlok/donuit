@@ -8,9 +8,11 @@
 <!-- svelte-ignore a11y-label-has-associated-control -->
 <li class="dropdown dropdown-bottom dropdown-left">
 	<label tabindex="0" class="btn mr-2 indicator p-2">
-		<span class="indicator-item indicator-bottom indicator-start badge badge-sm badge-secondary">
-			{$count}
-		</span>
+		{#if $count > 0}
+			<span class="indicator-item indicator-bottom indicator-start badge badge-sm badge-secondary">
+				{$count > 99 ? '99+' : $count}
+			</span>
+		{/if}
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			class="h-8 w-8"
@@ -29,18 +31,18 @@
 	</label>
 	<div
 		tabindex="0"
-		class="mt-3 card card-compact bg-accent dropdown-content w-52 cursor-default shadow-xl"
+		class="mt-3 card card-compact bg-accent dropdown-content cursor-default shadow-xl w-72"
 	>
 		<div class="card-body text-center">
 			{#if $count > 0}
-				<span class="font-bold text-lg text-base-100">{$count} Items</span>
+				<span class="font-bold text-2xl text-base-100">{$count} Items</span>
 				{#each $items as item}
-					<div class="flex justify-center gap-2 items-center">
+					<div class="flex gap-2 items-center">
 						<span>
 							{get(item).count}x
 						</span>
 						<img class="w-8 h-8" src={`/donuts/${get(item).product.img}`} alt="" />
-						<span class="text-lg">
+						<span>
 							{get(item).product.name}
 						</span>
 					</div>

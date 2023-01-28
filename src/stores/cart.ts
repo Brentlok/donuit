@@ -16,7 +16,8 @@ export class Cart {
 
     total = derived(this.items, () => {
         return get(this.items)
-            .reduce((prev, curr) => prev + get(curr).count * get(curr).product.price, 0);
+            .reduce((prev, curr) => prev + get(curr).count * get(curr).product.price, 0)
+            .toFixed(2);
     })
 
     add = (item: Item) => {

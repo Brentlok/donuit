@@ -37,5 +37,8 @@
 {#if show}
 	<div style={transform} class="fixed top-0 left-0 text-base-100 bg-accent p-3 rounded-md">
 		{show.name}
+		{#if show.sugarFree}
+			<p class="text-xs text-center">(sugar free)</p>
+		{/if}
 	</div>
 {/if}
