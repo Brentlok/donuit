@@ -21,7 +21,7 @@
 </script>
 
 {#each donuts as donut (donut.id)}
-	<a href={`/donut/${donut.id}`} class="grid place-items-center">
+	<a data-sveltekit-preload-data="tap" href={`/donut/${donut.id}`} class="grid place-items-center">
 		<div
 			class="cursor-pointer"
 			on:mouseover={(e) => handleMouse(donut, e)}

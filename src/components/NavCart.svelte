@@ -31,7 +31,7 @@
 	</label>
 	<div
 		tabindex="0"
-		class="mt-3 card card-compact bg-accent dropdown-content cursor-default shadow-xl w-72"
+		class="mt-3 card card-compact bg-accent dropdown-content max-sm:-left-48 cursor-default shadow-xl w-72"
 	>
 		<div class="card-body text-center">
 			{#if $count > 0}

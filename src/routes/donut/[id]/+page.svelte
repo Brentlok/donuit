@@ -16,7 +16,7 @@
 	<meta name="description" content={data.donut.name} />
 </svelte:head>
 
-<main class="grid place-items-center min-h-screen px-6 max-w-4xl m-auto">
+<main class="grid place-items-center min-h-screen py-20 md:pt-10 lg:pt-0 px-6 max-w-4xl m-auto">
 	<div class="flex flex-col gap-6 items-center">
 		<h1 class="text-5xl text-primary tracking-widest">{data.donut.name}</h1>
 		{#if data.donut.sugarFree}

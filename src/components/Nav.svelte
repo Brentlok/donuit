@@ -10,7 +10,7 @@
 	<h1 class="text-secondary">
 		<a href="/">DONUiT</a>
 	</h1>
-	<div class="relative">
+	<div class="relative hidden md:block">
 		<input type="text" class="input input-bordered input-primary bg-neutral text-base-100 pr-10" />
 		<button>
 			<svg
